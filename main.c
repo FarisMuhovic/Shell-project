@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include "defines.h"
+#include "utils.h"
 
 const char SPACE[4] = " ";
 
@@ -10,7 +10,7 @@ int main() {
 	printf(WELCOME_MSG);
 	char buffer[1024]; 
 	while(1){	
-		printf(PROMPT);
+		pprompt();
 		fgets(buffer, 1024, stdin);
 		
 		char* token = strtok(strtok(buffer, "\n"), SPACE);
