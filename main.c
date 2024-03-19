@@ -4,8 +4,6 @@
 #include "defines.h"
 #include "utils.h"
 
-const char SPACE[4] = " ";
-
 int main() {
 	printf(WELCOME_MSG);
 	char buffer[1024]; 
@@ -13,16 +11,16 @@ int main() {
 		pprompt();
 		fgets(buffer, 1024, stdin);
 		
-		char* token = strtok(strtok(buffer, "\n"), SPACE);
+		char* token = strtok(strtok(buffer, "\n"), " ");
 
 		if(strcmp(token, "exit") == 0) {
 			return 0;
 		}
 		else if (strcmp(token, "echo") == 0) {
-			token = strtok(NULL, SPACE);
+			token = strtok(NULL, " ");
 			while(token != NULL){
 				printf("%s ",token);
-				token = strtok(NULL, SPACE);
+				token = strtok(NULL, " ");
 			}
 			printf("\n");
 		}
