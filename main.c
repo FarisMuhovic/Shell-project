@@ -10,16 +10,8 @@ int main() {
 		printf("> ");
 		char buffer[1024]; 
 		fgets(buffer, 1024, stdin);
-		char buffer2[1024];
-		strcpy(buffer2, buffer);
 		char* token = strtok(strtok(buffer, "\n"), SPACE);
 	
-		for (int i = 0; buffer2[i] != '\0'; i++)
-		{
-			printf("%c", buffer2[i]);
-		}
-		
-
 		if(strcmp(token, "exit") == 0) {
 			return 0;
 		}
