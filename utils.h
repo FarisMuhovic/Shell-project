@@ -3,6 +3,11 @@
 #include <unistd.h>
 #include <string.h>
 
+struct Arguments{
+	int argc;
+	char** argv;
+};
+
 static inline void pprompt(){
 	char path[128];
 	getcwd(path, sizeof(path));
@@ -30,5 +35,9 @@ static inline void pprompt(){
 	}
 	printf("%i\n", slashcount);
 	printf("%s", newpath);
-	// printf("%s@%s:%s> ", getlogin(),  machinenamef , newpath);
+	printf("%s@%s:%s> ", getlogin(),  machinenamef , newpath);
 }
+
+int echo(struct Arguments);
+
+struct Arguments buffer2Vector(char*);

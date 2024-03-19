@@ -9,22 +9,22 @@ struct Arguments buffer2Vector(char *buffer){
 	for(int i=0; i!=strlen(buffer); i++){ //while true?
 		if(buffer[i] == '\n') break;
 		if(buffer[i] == ' ' && navodnik == 0){
-			buffer[i] = NULL;
+			buffer[i] = (char) NULL;
 		} else if (buffer[i] == '\"'){
-			navodnik ^ 0b001;	
+			navodnik ^= 0b001;	
 		} else if (buffer[i] == '\''){
-			navodnik ^ 0b010;
+			navodnik ^= 0b010;
 		} else if (buffer[i] == '`'){
-			navodnik ^ 0b100;
+			navodnik ^= 0b100;
 		}
 	}
-	struct Arguments args = {argc, buffer};
+	struct Arguments args = {argc, (char**)buffer};
 	return args;
 }
 
 int echo(struct Arguments in){
 	printf("\nargc: %d", in.argc);
 	for(int i=0; i!=in.argc; i++){
-		printf(in.argv[i]);
+		printf("%s",in.argv[i]);
 	}
 }
