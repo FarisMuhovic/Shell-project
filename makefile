@@ -1,18 +1,14 @@
-CFLAGS=-Wall
+CFLAGS=-Wall -g3
 
-run: compile
+
+run: build/MFshell
 	build/MFshell
 
-compile: main.o utils.o
-	gcc -o build/MFshell build/main.o build/utils.o
+build build/MFshell: build/main.o build/utils.o
+	gcc ${CFLAGS} build/*.o -o build/MFshell
 
-main.o:
-	mkdir -p build
-	gcc -c -o build/main.o main.c
-
-utils.o:
-	mkdir -p build
-	gcc -c -o build/utils.o utils.c 
+build/%.o : %.c
+	gcc $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf build
+	rm -rf build/*
