@@ -6,23 +6,11 @@
 
 int main() {
 	printf(WELCOME_MSG);
-	char buffer[1024]; 
+	char buffer[BUFF_LEN]; 
 	while(1){	
 		pprompt();
-		fgets(buffer, 1024, stdin);
-		
-		char* token = strtok(strtok(buffer, "\n"), " ");
-
-		if(strcmp(token, "exit") == 0) {
-			return 0;
-		}
-		else if (strcmp(token, "echo") == 0) {
-			token = strtok(NULL, " ");
-			while(token != NULL){
-				printf("%s ",token);
-				token = strtok(NULL, " ");
-			}
-			printf("\n");
-		}
+		fgets(buffer, BUFF_LEN , stdin);
+		struct Arguments args = buffer2Vector(buffer);
+		echo(args);
 	}
 }
