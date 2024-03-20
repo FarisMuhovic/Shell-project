@@ -32,11 +32,16 @@ void pprompt(){
 
 struct Arguments buffer2Vector(char *buffer){
 	int navodnik = 0; //`'"
-	int argc = 0;
-	for(int i=0; i!=strlen(buffer); i++){ //while true?
-		if(buffer[i] == '\n') break;
+	int argc = 1;
+	int len = strlen(buffer);
+	char** argv[MAX_ARGS]; //too big?
+	argv[0] = buffer;
+	for(int i=0; i<len; i++){
+		//exit if max args reached??
 		if(buffer[i] == ' ' && navodnik == 0){
 			buffer[i] = '\0';
+			argv[argc] = buffer+i+1;
+			argc++;
 		} else if (buffer[i] == '\"'){
 			navodnik ^= 0b001;	
 		} else if (buffer[i] == '\''){
@@ -45,14 +50,13 @@ struct Arguments buffer2Vector(char *buffer){
 			navodnik ^= 0b100;
 		}
 	}
-	struct Arguments args = {argc, (char**)buffer};
+	struct Arguments args = {argc, argv};
 	return args;
 }
 
 int echo(struct Arguments in){
-	printf("argc: %d\n", in.argc);
 	for(int i=0; i<in.argc; i++){
-		printf("%s\n",in.argv[i]);
+		printf("%s ",in.argv[i]);
 	}
 	return 0;
 }
