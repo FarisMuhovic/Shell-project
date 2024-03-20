@@ -4,7 +4,7 @@
 #include <string.h>
 
 void pprompt(){
-	char path[128];
+	/*char path[128];
 	getcwd(path, sizeof(path));
 	char machinenamef[64];
 	gethostname(machinenamef, 64);
@@ -27,7 +27,8 @@ void pprompt(){
 	}
 	//printf("%i\n", slashcount);
 	//printf("%s", newpath);
-	printf("\n%s@%s:%s> ", getlogin(),  machinenamef , newpath);
+	printf("\n%s@%s:%s> ", getlogin(),  machinenamef , newpath);*/
+	printf("\n%s@shitbox>", getlogin());
 }
 
 struct Arguments buffer2Vector(char *buffer){
