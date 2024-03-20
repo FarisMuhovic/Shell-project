@@ -27,7 +27,7 @@ void pprompt(){
 	}
 	//printf("%i\n", slashcount);
 	//printf("%s", newpath);
-	printf("%s@%s:%s> ", getlogin(),  machinenamef , newpath);
+	printf("\n%s@%s:%s> ", getlogin(),  machinenamef , newpath);
 }
 
 struct Arguments buffer2Vector(char *buffer){
@@ -35,7 +35,7 @@ struct Arguments buffer2Vector(char *buffer){
 	int argc = 1;
 	int len = strlen(buffer);
 	char** argv[MAX_ARGS]; //too big?
-	argv[0] = buffer;
+	argv[0] = strtok(buffer, "\n");
 	for(int i=0; i<len; i++){
 		//exit if max args reached??
 		if(buffer[i] == ' ' && navodnik == 0){
@@ -55,7 +55,7 @@ struct Arguments buffer2Vector(char *buffer){
 }
 
 int echo(struct Arguments in){
-	for(int i=0; i<in.argc; i++){
+	for(int i=1; i<in.argc; i++){
 		printf("%s ",in.argv[i]);
 	}
 	return 0;

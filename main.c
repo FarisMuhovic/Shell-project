@@ -7,10 +7,20 @@
 int main() {
 	printf(WELCOME_MSG);
 	char buffer[BUFF_LEN]; 
-	while(1){	
+	while(1){
 		pprompt();
 		fgets(buffer, BUFF_LEN , stdin);
+		if(strlen(buffer) == 1){
+			continue;
+		}
 		struct Arguments args = buffer2Vector(buffer);
-		echo(args);
+		//shell builtins
+		if(strcmp(args.argv[0], "echo") == 0){
+			echo(args);
+		}
+		if(strcmp(args.argv[0], "exit") == 0){
+			break;
+		}
 	}
+	return 0;
 }
