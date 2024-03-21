@@ -1,6 +1,7 @@
 #include "fortune.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 const char* fortunes[] = {
 " _________________________________________\n"
@@ -38,7 +39,7 @@ const char* fortunes[] = {
 "      //   \\ \n"
 "     (|     | )\n"
 "    /'\\_   _/`\n"
-"    \\___)=(___/\n\n\n"
+"    \\___)=(___/\n\n"
 ,
 "     ________________________________________\n"
 "/ Just because the message may never be  \n"
@@ -95,14 +96,14 @@ const char* fortunes[] = {
 "  (( /// ))      `.   {            }                   /      \\  \\  \n"
 "   (( / ))     .----~-.\\        \\-'                 .~         \\  `. \\^-.  \n"
 "              ///.----..>        \\             _ -~             `.  ^-`  ^-_  \n"
-"                ///-._ _ _ _ _ _ _}^ - - - - ~                     ~-- ,.-~  \n"
+"                ///-._ _ _ _ _ _ _}^ - - - - ~   `                  ~-- ,.-~  \n"
 "                                                                   /.-~  \n"
 "   \n"
 };
 
 
-int fortune()
-{
+int fortune() {
+    srand(time(NULL));
     printf("%s", fortunes[rand() % 5]);
     return 0;
 }

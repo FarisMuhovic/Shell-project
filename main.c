@@ -31,7 +31,10 @@ int main() {
 			return 0;
 		} else if (strcmp(argv[0], "cd") == 0) {
 			chdir(argv[1]);
-		} else {
+		} else if (strcmp(argv[0], "fortune") == 0) { 
+			fortune();
+		}
+		else {
 			int childPid = fork();
 			if(childPid == 0){
 				execvp(argv[0], argv);
