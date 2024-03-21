@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void pprompt(){
+void pprompt(int retStatus){
 	char path[128];
 	getcwd(path,128);
 	char machinenamef[64];

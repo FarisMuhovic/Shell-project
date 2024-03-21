@@ -3,8 +3,8 @@
 #include <unistd.h>
 #include <string.h>
 
-void pprompt();
+void pprompt(int);
 
-int echo(int argc, char** argv);
+int echo(int, char**);
 
 int buffer2Args(char*, char**);

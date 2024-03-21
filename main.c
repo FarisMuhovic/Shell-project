@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 #include "defines.h"
 #include "utils.h"
 
@@ -10,7 +11,8 @@ int main() {
 	char buffer[BUFF_LEN];
 	memset(buffer, 0x0, BUFF_LEN);
 	while(1){
-		pprompt();
+		int retStatus;
+		pprompt(retStatus);
 		fgets(buffer, BUFF_LEN, stdin);
 		if(strlen(buffer) == 1){
 			continue;
@@ -23,14 +25,15 @@ int main() {
 			echo(argc, argv);
 		} else if(strcmp(argv[0], "exit") == 0){
 			break;
-		}
-		else if (strcmp(argv[0], "cd") == 0) {
+		} else if (strcmp(argv[0], "cd") == 0) {
 			chdir(argv[1]);
 		} else {
-			printf("Command not found: %s", argv[0]);
-		//	execvpe(args.argv[0], args.argv);
+			int childPid = fork();
+			if(childPid == 0){
+				execvp(argv[0], argv);
+			}
+    		waitpid(childPid, &retStatus, 0);
 		}
-
 	}
 	return 0;
 }
