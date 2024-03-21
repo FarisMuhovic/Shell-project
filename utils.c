@@ -8,8 +8,16 @@ void pprompt(int retStatus){
 	getcwd(path,128);
 	char machinenamef[64];
 	gethostname(machinenamef, 64);
-	strcat(path, "~$");
-	printf("\n%s@%s:%s ", getlogin(),  machinenamef , path);
+	strcat(path, "$");
+	char concatedpath[150];
+	sprintf(concatedpath, "/home/%s", getlogin());
+	if (strncmp(path, concatedpath, strlen(concatedpath)) == 0) {
+		sprintf(concatedpath, "~%s", path + strlen(concatedpath));
+	} else  {
+		strcpy(concatedpath, path);
+	}
+
+	printf("\n%s@%s:%s ", getlogin(),  machinenamef , concatedpath);
 }
 
 int buffer2Args(char *buffer, char** argv){
