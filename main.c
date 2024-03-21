@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include "defines.h"
 #include "utils.h"
+#include "history.h"
 
 int main() {
 	printf(WELCOME_MSG);
@@ -14,6 +15,7 @@ int main() {
 		memset(buffer, 0x0, BUFF_LEN);
 		pprompt(retStatus);
 		fgets(buffer, BUFF_LEN, stdin);
+		remember(buffer);
 		if(strlen(buffer) == 1){
 			continue;
 		}
