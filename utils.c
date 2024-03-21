@@ -4,31 +4,12 @@
 #include <string.h>
 
 void pprompt(){
-	/*char path[128];
-	getcwd(path, sizeof(path));
+	char path[128];
+	getcwd(path,128);
 	char machinenamef[64];
 	gethostname(machinenamef, 64);
-	char newpath[128];
-
-	int slashcount = 0;
-	for (int i = 0; i < strlen(path); i++){
-		if (path[i] == '/') {
-			slashcount++;
-		}
-		//slashcount += (path[i] == '/')
-
-		if (slashcount == 4) {
-			// printf("%c\n", path[i]);
-			// strcat(newpath, path[i]);
-			newpath[i + slashcount] = path[i];
-			newpath[i+ slashcount + 1] = '\0';
-			//printf("%s", newpath);
-		}
-	}
-	//printf("%i\n", slashcount);
-	//printf("%s", newpath);
-	printf("\n%s@%s:%s> ", getlogin(),  machinenamef , newpath);*/
-	printf("\n%s@shitbox>", getlogin());
+	strcat(path, "~$");
+	printf("\n%s@%s:%s ", getlogin(),  machinenamef , path);
 }
 
 int buffer2Args(char *buffer, char** argv){

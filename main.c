@@ -23,6 +23,10 @@ int main() {
 			echo(argc, argv);
 		} else if(strcmp(argv[0], "exit") == 0){
 			break;
+		}
+		else if (strcmp(argv[0], "cd") == 0) {
+			chdir(argv[1]);
+			printf("%s", getcwd(NULL,100)); 
 		} else {
 			printf("Command not found: %s", argv[0]);
 		//	execvpe(args.argv[0], args.argv);
