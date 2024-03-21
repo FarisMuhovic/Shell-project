@@ -27,7 +27,6 @@ int main() {
 			break;
 		} else if (strcmp(argv[0], "cd") == 0) {
 			chdir(argv[1]);
-			printf("%s", getcwd(NULL, 1024));
 		} else {
 			int childPid = fork();
 			if(childPid == 0){
