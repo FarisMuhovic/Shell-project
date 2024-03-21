@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include "defines.h"
 #include "utils.h"
+#include "fortune.h"
 
 int main() {
 	printf(WELCOME_MSG);
