@@ -3,13 +3,8 @@
 #include <unistd.h>
 #include <string.h>
 
-struct Arguments{
-	int argc;
-	char** argv;
-};
-
 void pprompt();
 
-int echo(struct Arguments);
+int echo(int argc, char** argv);
 
-struct Arguments buffer2Vector(char*);
+int buffer2Args(char*, char**);

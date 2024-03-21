@@ -11,19 +11,20 @@ int main() {
 	memset(buffer, 0x0, BUFF_LEN);
 	while(1){
 		pprompt();
-		fgets(buffer, BUFF_LEN , stdin);
+		fgets(buffer, BUFF_LEN, stdin);
 		if(strlen(buffer) == 1){
 			continue;
 		}
-		struct Arguments args = buffer2Vector(buffer);
+		//maybe don't put this on the stack?
+		char* argv[MAX_ARGS]; //too big?
+		int argc = buffer2Args(buffer, argv);
 		//shell builtins
-		printf("Checking %s...\n", args.argv[0]);
-		if(strcmp(args.argv[0], "echo") == 0){
-			echo(args);
-		} else if(strcmp(args.argv[0], "exit") == 0){
+		if(strcmp(argv[0], "echo") == 0){
+			echo(argc, argv);
+		} else if(strcmp(argv[0], "exit") == 0){
 			break;
 		} else {
-			printf("running %s...\n", args.argv[0]);
+			printf("Command not found: %s", argv[0]);
 		//	execvpe(args.argv[0], args.argv);
 		}
 

@@ -31,18 +31,17 @@ void pprompt(){
 	printf("\n%s@shitbox>", getlogin());
 }
 
-struct Arguments buffer2Vector(char *buffer){
+int buffer2Args(char *buffer, char** argv){
+	int argc = 0;
 	int navodnik = 0; //`'"
-	int argc = 1;
 	int len = strlen(buffer);
-	char** argv[MAX_ARGS]; //too big?
 	argv[0] = strtok(buffer, "\n");
 	for(int i=0; i<len; i++){
 		//exit if max args reached??
 		if(buffer[i] == ' ' && navodnik == 0){
+			argc++;
 			buffer[i] = '\0';
 			argv[argc] = buffer+i+1;
-			argc++;
 		} else if (buffer[i] == '\"'){
 			navodnik ^= 0b001;	
 		} else if (buffer[i] == '\''){
@@ -51,13 +50,12 @@ struct Arguments buffer2Vector(char *buffer){
 			navodnik ^= 0b100;
 		}
 	}
-	struct Arguments args = {argc, argv};
-	return args;
+	return argc;
 }
 
-int echo(struct Arguments in){
-	for(int i=1; i<in.argc; i++){
-		printf("%s ",in.argv[i]);
+int echo(int argc, char** argv){
+	for(int i=1; i<=argc; i++){
+		printf("%s ",argv[i]);
 	}
 	return 0;
 }
