@@ -9,7 +9,7 @@
 #include "history.h"
 
 int main() {
-	printf(WELCOME_MSG);
+	welcomeText();
 	char* buffer = (char*) malloc(BUFF_LEN); //heap allocate
 	while(1){
 		int retStatus;

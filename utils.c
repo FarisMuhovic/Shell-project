@@ -2,6 +2,7 @@
 #include "defines.h"
 #include <stdlib.h>
 #include <string.h>
+#include <sys/utsname.h>
 
 void pprompt(int retStatus){
 	char path[128];
@@ -47,4 +48,25 @@ int echo(int argc, char** argv){
 		printf("%s ",argv[i]);
 	}
 	return 0;
+}
+
+const char logo[] = {
+
+};
+
+void welcomeText() {
+	struct utsname system_info;
+
+	if (uname(&system_info) == -1) {
+		perror("uname");
+	}
+	printf("\n");
+	printf("%s\n\n", "Welcome!");
+	printf("%s\n", "System information ");
+	printf("%s\n", system_info.sysname);
+	printf("%s\n", system_info.release);
+	printf("%s\n", system_info.machine);
+	printf("%s\n", system_info.nodename);	
+
+
 }
