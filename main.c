@@ -33,6 +33,8 @@ int main() {
 			chdir(argv[1]);
 		} else if (strcmp(argv[0], "fortune") == 0) { 
 			fortune();
+		} else if (strcmp(argv[0], "history") == 0){
+			history();
 		}
 		else {
 			int childPid = fork();

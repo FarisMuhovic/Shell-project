@@ -25,3 +25,16 @@ void remember(char *buffer){
 	fprintf(file, "%d: %s", lnNum, buffer);
 	fclose(file);
 }
+
+int history(){
+	FILE *file;
+	char line[BUFF_LEN]; // this will cause a buffer overfow
+	file = fopen(HISTORY_FILE, "r");
+	if (file != NULL){
+		while (fgets(line, sizeof(line), file)){
+			printf("%s",line);
+		}
+		fclose(file);
+	}
+	return 0;
+};
