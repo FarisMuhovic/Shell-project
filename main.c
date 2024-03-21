@@ -8,10 +8,10 @@
 
 int main() {
 	printf(WELCOME_MSG);
-	char buffer[BUFF_LEN];
-	memset(buffer, 0x0, BUFF_LEN);
+	char* buffer = (char*) malloc(BUFF_LEN); //heap allocate
 	while(1){
 		int retStatus;
+		memset(buffer, 0x0, BUFF_LEN);
 		pprompt(retStatus);
 		fgets(buffer, BUFF_LEN, stdin);
 		if(strlen(buffer) == 1){
@@ -24,7 +24,8 @@ int main() {
 		if(strcmp(argv[0], "echo") == 0){
 			echo(argc, argv);
 		} else if(strcmp(argv[0], "exit") == 0){
-			break;
+			printf("Goodbye!!\n");
+			return 0;
 		} else if (strcmp(argv[0], "cd") == 0) {
 			chdir(argv[1]);
 		} else {
