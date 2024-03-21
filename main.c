@@ -22,7 +22,12 @@ int main() {
 			echo(args);
 		} else if(strcmp(args.argv[0], "exit") == 0){
 			break;
-		} else {
+		}
+		else if (strcmp(args.argv[0], "cd") == 0) {
+			chdir(args.argv[1]);
+			printf("%s", getcwd(NULL,100)); 
+		}
+		 else {
 			printf("running %s...\n", args.argv[0]);
 		//	execvpe(args.argv[0], args.argv);
 		}
