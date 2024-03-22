@@ -4,12 +4,13 @@
 #include <string.h>
 #include <sys/utsname.h>
 
+
 void pprompt(int retStatus){
 	char path[128];
 	getcwd(path,128);
 	char machinenamef[64];
 	gethostname(machinenamef, 64);
-	strcat(path, "$");
+	strcat(path, WHITE"$");
 	char concatedpath[150];
 	sprintf(concatedpath, "/home/%s", getlogin());
 	if (strncmp(path, concatedpath, strlen(concatedpath)) == 0) {
@@ -18,7 +19,7 @@ void pprompt(int retStatus){
 		strcpy(concatedpath, path);
 	}
 
-	printf("\n%s@%s:%s ", getlogin(),  machinenamef , concatedpath);
+	printf(GREEN"\n%s"WHITE"@"GREEN"%s:"BLUE"%s "WHITE, getlogin(),  machinenamef , concatedpath);
 }
 
 int buffer2Args(char *buffer, char** argv){
@@ -61,12 +62,9 @@ void welcomeText() {
 		perror("uname");
 	}
 	printf("\n");
-	printf("%s\n\n", "Welcome!");
-	printf("%s\n", "System information ");
-	printf("%s\n", system_info.sysname);
-	printf("%s\n", system_info.release);
-	printf("%s\n", system_info.machine);
-	printf("%s\n", system_info.nodename);	
-
+	printf(GREEN"%s\n\n", "Welcome!"RESET);
+	printf(WHITE"%s\n", "System information "RESET);
+	printf("%s%s%s\n", system_info.sysname, "-", system_info.release);
+	printf("%s%s%s\n"RESET, system_info.nodename, "-" ,system_info.machine );	
 
 }
