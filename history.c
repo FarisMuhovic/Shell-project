@@ -22,7 +22,7 @@ void remember(char *buffer){
 		return;
 	}
 
-	fprintf(file, "%d: %s", lnNum, buffer);
+	fprintf(file, "%d: %s\n", lnNum, buffer);
 	fclose(file);
 }
 
