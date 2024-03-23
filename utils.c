@@ -5,12 +5,12 @@
 #include <sys/utsname.h>
 
 
-void pprompt(int retStatus){
+char* prompt(int retStatus){
+	static char prompt[BUFF_LEN];
 	char path[128];
 	getcwd(path,128);
 	char machinenamef[64];
 	gethostname(machinenamef, 64);
-	strcat(path, WHITE"$");
 	char concatedpath[150];
 	sprintf(concatedpath, "/home/%s", getlogin());
 	if (strncmp(path, concatedpath, strlen(concatedpath)) == 0) {
@@ -19,7 +19,8 @@ void pprompt(int retStatus){
 		strcpy(concatedpath, path);
 	}
 
-	printf(GREEN"\n%s"WHITE"@"GREEN"%s:"BLUE"%s "WHITE, getlogin(),  machinenamef , concatedpath);
+	sprintf(prompt, GREEN"\n%s"WHITE"@"GREEN"%s:"BLUE"%s"WHITE"$"RESET, getlogin(),  machinenamef , concatedpath);
+	return prompt;
 }
 
 int buffer2Args(char *buffer, char** argv){

@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 
-void pprompt(int);
+char* prompt(int);
 
 int echo(int, char**);
 

@@ -7,19 +7,20 @@
 #include "utils.h"
 #include "fortune.h"
 #include "history.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int main() {
 	welcomeText();
-	char* buffer = (char*) malloc(BUFF_LEN); //heap allocate
-	while(1){
-		int retStatus;
-		memset(buffer, 0x0, BUFF_LEN);
-		pprompt(retStatus);
-		fgets(buffer, BUFF_LEN, stdin);
-		remember(buffer);
-		if(strlen(buffer) == 1){
+	char* buffer;
+	int retStatus;
+	while((buffer = readline(prompt(retStatus))) != NULL) {
+		if(strlen(buffer) == 0){
 			continue;
 		}
+		remember(buffer);	//system
+		add_history(buffer);//runtime
+		
 		//maybe don't put this on the stack?
 		char* argv[MAX_ARGS]; //too big?
 		int argc = buffer2Args(buffer, argv);
@@ -43,6 +44,7 @@ int main() {
 			}
     		waitpid(childPid, &retStatus, 0);
 		}
+		free(buffer);
 	}
 	return 0;
 }
