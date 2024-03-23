@@ -39,6 +39,8 @@ int main() {
 			recall();
 		} else if(strcmp(argv[0], "cp") == 0){
 			cp(argc, argv);
+		} else if(strcmp(argv[0], "free") == 0){
+			free_mem();
 		}
 		else {
 			int childPid = fork();
