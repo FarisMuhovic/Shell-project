@@ -26,7 +26,7 @@ void remember(char *buffer){
 	fclose(file);
 }
 
-int history(){
+int recall(){
 	FILE *file;
 	char line[BUFF_LEN]; // this will cause a buffer overfow
 	file = fopen(HISTORY_FILE, "r");

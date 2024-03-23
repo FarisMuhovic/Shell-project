@@ -2,4 +2,4 @@
 
 void remember(char*);
 
-int history();
+int recall();

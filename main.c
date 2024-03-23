@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "fortune.h"
 #include "history.h"
+#include "builtins.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -35,7 +36,9 @@ int main() {
 		} else if (strcmp(argv[0], "fortune") == 0) { 
 			fortune();
 		} else if (strcmp(argv[0], "history") == 0){
-			history();
+			recall();
+		} else if(strcmp(argv[0], "cp") == 0){
+			cp(argc, argv);
 		}
 		else {
 			int childPid = fork();
