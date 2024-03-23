@@ -5,8 +5,6 @@
 
 char* prompt(int);
 
-int echo(int, char**);
-
 int buffer2Args(char*, char**);
 
 void welcomeText();
