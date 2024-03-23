@@ -25,21 +25,26 @@ char* prompt(int retStatus){
 
 int buffer2Args(char *buffer, char** argv){
 	int argc = 0;
-	int navodnik = 0; //`'"
+	int navodnik = 0;//bool
 	int len = strlen(buffer);
 	argv[0] = strtok(buffer, "\n");
 	for(int i=0; i<len; i++){
 		//exit if max args reached??
-		if(buffer[i] == ' ' && navodnik == 0){
-			argc++;
+		if(buffer[i] == ' ' && !navodnik){
 			buffer[i] = '\0';
-			argv[argc] = buffer+i+1;
+			argv[++argc] = buffer+i+1;
+			//	proper thing to do would be:
+			//strcpy(buffer+i,buffer+i+1);
+			//argv[++argc] = buffer+i;
+			//	but it would trade a little bit of memory for a lot of copying...
 		} else if (buffer[i] == '\"'){
-			navodnik ^= 0b001;	
-		} else if (buffer[i] == '\''){
-			navodnik ^= 0b010;
-		} else if (buffer[i] == '`'){
-			navodnik ^= 0b100;
+			navodnik = !navodnik;
+			buffer[i] = '\0';
+			argv[argc] += navodnik;
+		} else if(buffer[i] == '\\'){
+			if(buffer[i+1] == '\\' || buffer[i+1] == '\"'){
+				strcpy(buffer+i,buffer+i+1);
+			}
 		}
 	}
 	return argc;
@@ -62,10 +67,9 @@ void welcomeText() {
 	if (uname(&system_info) == -1) {
 		perror("uname");
 	}
-	printf("\n");
 	printf(GREEN"%s\n\n", "Welcome!"RESET);
 	printf(WHITE"%s\n", "System information "RESET);
-	printf("%s%s%s\n", system_info.sysname, "-", system_info.release);
-	printf("%s%s%s\n"RESET, system_info.nodename, "-" ,system_info.machine );	
+	printf("%s-%s\n", system_info.sysname, system_info.release);
+	printf("%s-%s\n"RESET, system_info.nodename, system_info.machine );	
 
 }
