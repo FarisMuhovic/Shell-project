@@ -14,7 +14,7 @@
 int main() {
 	welcomeText();
 	char* buffer;
-	int retStatus;
+	int retStatus = 0;
 	while((buffer = readline(prompt(retStatus))) != NULL) {
 		if(strlen(buffer) == 0){
 			continue;

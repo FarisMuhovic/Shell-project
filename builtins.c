@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #include "builtins.h"
 
 int echo(int argc, char** argv){
@@ -17,14 +18,15 @@ int cp(int argc, char ** argv){
 		return -1;
 	}
 	if(argc == 2){ //file to file
+		printf("Copying %s to %s... ", argv[1], argv[2]);
 		int src = open(argv[1], O_RDONLY);
     	if (src == -1) {
-    	    perror("Error opening SRC");
+    	    perror(argv[1]);
     	    return -1;
     	}
     	int dst = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
     	if (dst == -1) {
-    	    perror("Error copying to DST");
+    	    perror(argv[2]);
     	    return -1;
     	}
 
@@ -35,9 +37,15 @@ int cp(int argc, char ** argv){
     	    perror("Error in syscall copy_file_range");
     	   return -1;
     	}
-    	printf("Copied %zd bytes", bytes_copied);
+    	printf("Copied %zd bytes\n", bytes_copied);
     	close(src);	close(dst);
-    	return 0;
+	} else { //files to folder
+		for(int i=1; i<argc; i++){
+			char dst[128];
+			sprintf(dst, "%s/%s", argv[argc], argv[i]);
+			char* subargs[3] = {"cp", argv[i], dst};
+			cp(2, subargs);
+		}
 	}
 	return 0;
 }
