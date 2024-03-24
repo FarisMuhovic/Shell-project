@@ -44,9 +44,11 @@ int buffer2Args(char *buffer, char** argv){
 		} else if(buffer[i] == '\\'){
 			if(buffer[i+1] == '\\' || buffer[i+1] == '\"'){
 				strcpy(buffer+i,buffer+i+1);
+				//previous check for " will not happen
 			}
 		}
 	}
+	argv[argc+1] = NULL;
 	return argc;
 }
 
