@@ -19,7 +19,7 @@ char* prompt(int retStatus){
 		strcpy(concatedpath, path);
 	}
 
-	sprintf(prompt, GREEN"\n%s"WHITE"@"GREEN"%s:"BLUE"%s"WHITE"$"RESET, getlogin(),  machinenamef , concatedpath);
+	sprintf(prompt, GREEN"\n%s"WHITE"@"GREEN"%s:"BLUE"%s"WHITE"$ "RESET, getlogin(),  machinenamef , concatedpath);
 	return prompt;
 }
 
