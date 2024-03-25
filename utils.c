@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include "utils.h"
 #include "defines.h"
 #include <stdlib.h>
@@ -18,7 +19,7 @@ char* prompt(int retStatus){
 	if (strncmp(path, concatedpath, strlen(concatedpath)) == 0) {
 		sprintf(concatedpath, "~%s", path + strlen(concatedpath));
 	} else  {
-		strcpy(concatedpath, path);
+		strlcpy(concatedpath, path, 128);
 	}
 
 	sprintf(prompt, GREEN"%s"WHITE"@"GREEN"%s:"BLUE"%s"WHITE"$ "RESET, getlogin(),  machinenamef , concatedpath);
@@ -44,13 +45,13 @@ int buffer2Args(char *buffer, char** argv){
 			argv[argc] += navodnik;
 		} else if(buffer[i] == '\\'){
 			if(buffer[i+1] == '\\' || buffer[i+1] == '\"'){
-				strcpy(buffer+i,buffer+i+1);
+				strlcpy(buffer+i,buffer+i+1, BUFF_LEN);
 				//previous check for " will not happen
 			}
 		}
 	}
-	if(strlen(argv[argc]) == 0){
-		argc--;
+	if(strlen(argv[argc]) == 0){ //should not have to do this.
+		argc--;// this is because the code above does not work properly.
 	}
 	argv[argc+1] = NULL; //just in case
 	return argc;
