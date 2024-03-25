@@ -19,7 +19,8 @@ void remember(char *buffer){
 
 	file = fopen(HISTORY_FILE, "a");
 	if (file == NULL){
-		printf("Error opening file %s for appending.\n", HISTORY_FILE);
+		printf("Error opening file %s for appending:\n", HISTORY_FILE);
+		perror("");
 		return;
 	}
 
