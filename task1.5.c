@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 
 void question151(){
 	printf("Bboth require syscalls, which run in kernel mode. "

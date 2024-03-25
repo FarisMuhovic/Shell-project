@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "history.h"
 #include "defines.h"
 
@@ -38,32 +39,31 @@ int recall(){
 	}
 	return 0;
 }
-int history(int argc, char ** argv)
-{
-   if (argc == 0) {
-	 recall();
-   } else if (strcmp(argv[1], "--l") == 0){
-   FILE *file;
-   char line[BUFF_LEN];
-	file = fopen(HISTORY_FILE, "r");
-	if (file != NULL){
-		int i = 0;
-		while (fgets(line, sizeof(line), file)){
-			i++;
-		}
-		int k = 0;
-		fseek(file,0,SEEK_SET);
-		while (fgets(line, sizeof(line), file)){
-			if (i - strtol(argv[2], NULL, 10) <= k) {
-				printf("%s",line);
+int history(int argc, char ** argv){
+	if (argc == 0) {
+		recall();
+	} else if (strcmp(argv[1], "-l") == 0){
+		FILE *file;
+		char line[BUFF_LEN];
+		file = fopen(HISTORY_FILE, "r");
+		if (file != NULL){
+			int i = 0;
+			while (fgets(line, sizeof(line), file)){
+				i++;
 			}
-			k++;
-			// printf("%d\n", i);
+			i -= strtol(argv[2], NULL, 10);
+			int k = 0;
+			fseek(file,0,SEEK_SET);
+			while (fgets(line, sizeof(line), file)){
+				if ( i <= k++) {
+					printf("%s",line);
+				}
+			}
+			fclose(file);
 		}
-		fclose(file);
+	} else {
+		printf("Usage: \t%s\n\t%s -l <lines>", argv[0], argv[0]);
+		return -1;
 	}
 	return 0;
-   } else {
-	return 1;
-   }
 };
