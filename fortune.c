@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include "defines.h"
 
 const char* fortunes[] = {
 " _________________________________________\n"
@@ -102,8 +103,135 @@ const char* fortunes[] = {
 };
 
 
-int fortune() {
-    srand(time(NULL));
-    printf("%s", fortunes[rand() % 5]);
-    return 0;
+int fortune(int argc, char** argv) {
+    if (argc == 0) {
+        srand(time(NULL));
+        printf("%s", fortunes[rand() % 5]);
+        return 0;
+    } else if (strcmp(argv[1], "--cat") == 0) {
+        if (strcmp(argv[2], "--black") == 0) {
+            printf(BLACK"%s", fortunes[0]);
+        }
+        else if (strcmp(argv[2], "--red") == 0) {
+            printf(RED"%s", fortunes[0]);
+        }
+        else if (strcmp(argv[2], "--yellow") == 0) {
+            printf(YELLOW"%s", fortunes[0]);
+        }
+        else if (strcmp(argv[2], "--green") == 0) {
+            printf(GREEN"%s", fortunes[0]);
+        }
+        else if (strcmp(argv[2], "--blue") == 0) {
+            printf(BLUE"%s", fortunes[0]);
+        }
+        else if (strcmp(argv[2], "--purple") == 0) {
+            printf(PURPLE"%s", fortunes[0]);
+        }
+        else if (strcmp(argv[2], "--cyan") == 0) {
+            printf(CYAN"%s", fortunes[0]);
+        }   
+        else {
+            printf(RESET"%s", fortunes[0]);
+        }
+    } else if (strcmp(argv[1], "--penguin") == 0) {
+                if (strcmp(argv[2], "--black") == 0) {
+            printf(BLACK"%s", fortunes[1]);
+        }
+        else if (strcmp(argv[2], "--red") == 0) {
+            printf(RED"%s", fortunes[1]);
+        }
+        else if (strcmp(argv[2], "--yellow") == 0) {
+            printf(YELLOW"%s", fortunes[1]);
+        }
+        else if (strcmp(argv[2], "--green") == 0) {
+            printf(GREEN"%s", fortunes[1]);
+        }
+        else if (strcmp(argv[2], "--blue") == 0) {
+            printf(BLUE"%s", fortunes[1]);
+        }
+        else if (strcmp(argv[2], "--purple") == 0) {
+            printf(PURPLE"%s", fortunes[1]);
+        }
+        else if (strcmp(argv[2], "--cyan") == 0) {
+            printf(CYAN"%s", fortunes[1]);
+        }   
+        else {
+            printf(RESET"%s", fortunes[1]);
+        }
+    } else if (strcmp(argv[1], "--cow") == 0) {
+        if (strcmp(argv[2], "--black") == 0) {
+            printf(BLACK"%s", fortunes[2]);
+        }
+        else if (strcmp(argv[2], "--red") == 0) {
+            printf(RED"%s", fortunes[2]);
+        }
+        else if (strcmp(argv[2], "--yellow") == 0) {
+            printf(YELLOW"%s", fortunes[2]);
+        }
+        else if (strcmp(argv[2], "--green") == 0) {
+            printf(GREEN"%s", fortunes[2]);
+        }
+        else if (strcmp(argv[2], "--blue") == 0) {
+            printf(BLUE"%s", fortunes[2]);
+        }
+        else if (strcmp(argv[2], "--purple") == 0) {
+            printf(PURPLE"%s", fortunes[2]);
+        }
+        else if (strcmp(argv[2], "--cyan") == 0) {
+            printf(CYAN"%s", fortunes[2]);
+        }   
+        else {
+            printf(RESET"%s", fortunes[2]);
+        }
+    } else if (strcmp(argv[1], "--turtle") == 0) {
+        if (strcmp(argv[2], "--black") == 0) {
+            printf(BLACK"%s", fortunes[3]);
+        }
+        else if (strcmp(argv[2], "--red") == 0) {
+            printf(RED"%s", fortunes[3]);
+        }
+        else if (strcmp(argv[2], "--yellow") == 0) {
+            printf(YELLOW"%s", fortunes[3]);
+        }
+        else if (strcmp(argv[2], "--green") == 0) {
+            printf(GREEN"%s", fortunes[3]);
+        }
+        else if (strcmp(argv[2], "--blue") == 0) {
+            printf(BLUE"%s", fortunes[3]);
+        }
+        else if (strcmp(argv[2], "--purple") == 0) {
+            printf(PURPLE"%s", fortunes[3]);
+        }
+        else if (strcmp(argv[2], "--cyan") == 0) {
+            printf(CYAN"%s", fortunes[3]);
+        }   
+        else {
+            printf(RESET"%s", fortunes[3]);
+        }
+    } else if (strcmp(argv[1], "--dragon") == 0) {
+        if (strcmp(argv[2], "--black") == 0) {
+            printf(BLACK"%s", fortunes[4]);
+        }
+        else if (strcmp(argv[2], "--red") == 0) {
+            printf(RED"%s", fortunes[4]);
+        }
+        else if (strcmp(argv[2], "--yellow") == 0) {
+            printf(YELLOW"%s", fortunes[4]);
+        }
+        else if (strcmp(argv[2], "--green") == 0) {
+            printf(GREEN"%s", fortunes[4]);
+        }
+        else if (strcmp(argv[2], "--blue") == 0) {
+            printf(BLUE"%s", fortunes[4]);
+        }
+        else if (strcmp(argv[2], "--purple") == 0) {
+            printf(PURPLE"%s", fortunes[4]);
+        }
+        else if (strcmp(argv[2], "--cyan") == 0) {
+            printf(CYAN"%s", fortunes[4]);
+        }   
+        else {
+            printf(RESET"%s", fortunes[4]);
+        }
+    }
 }
