@@ -49,6 +49,7 @@ int main() {
 				free_mem();
 			} else { //execute
 				execvp(argv[0], argv);
+				printf("Command not found: %s\n", argv[0]);
 			}
 			exit(0);
 		}
