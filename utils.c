@@ -21,7 +21,7 @@ char* prompt(int retStatus){
 		strcpy(concatedpath, path);
 	}
 
-	sprintf(prompt, GREEN"\n%s"WHITE"@"GREEN"%s:"BLUE"%s"WHITE"$ "RESET, getlogin(),  machinenamef , concatedpath);
+	sprintf(prompt, GREEN"%s"WHITE"@"GREEN"%s:"BLUE"%s"WHITE"$ "RESET, getlogin(),  machinenamef , concatedpath);
 	return prompt;
 }
 
@@ -34,11 +34,10 @@ int buffer2Args(char *buffer, char** argv){
 		//exit if max args reached??
 		if(buffer[i] == ' ' && !navodnik){
 			buffer[i] = '\0';
-			argv[++argc] = buffer+i+1;
-			//	proper thing to do would be:
-			//strcpy(buffer+i,buffer+i+1);
-			//argv[++argc] = buffer+i;
-			//	but it would trade a little bit of memory for a lot of copying...
+			while(buffer[++i] == ' '){
+				buffer[i] = '\0'; //also remove extra spaces
+			}
+			argv[++argc] = buffer+i;
 		} else if (buffer[i] == '\"'){
 			navodnik = !navodnik;
 			buffer[i] = '\0';
@@ -50,7 +49,10 @@ int buffer2Args(char *buffer, char** argv){
 			}
 		}
 	}
-	argv[argc+1] = NULL;
+	if(strlen(argv[argc]) == 0){
+		argc--;
+	}
+	argv[argc+1] = NULL; //just in case
 	return argc;
 }
 
@@ -59,16 +61,17 @@ int redirector(char* buffer){
 	int fd = 0;
 	for(int i=0; i<len; i++){
 		if(buffer[i] == '>'){
+			buffer[i++] = '\0'; //set to null and go to next one
 			if(buffer[i] == '>'){
-				while(buffer[++i] != ' '){}
+				i++;//skip the >
+				while(buffer[i] == ' '){i++;}//this works, DO NOT TRY TO OPTIMIZE IT
 				fd = open(buffer+i, O_WRONLY | O_APPEND | O_CREAT, 0664);
 			} else {
-				while(buffer[i++] != ' '){}
-				fd = open(buffer+i, O_WRONLY | O_CREAT, 0664);
+				while(buffer[i] == ' '){i++;}
+				fd = open(buffer+i, O_WRONLY | O_TRUNC | O_CREAT, 0664);
 			}
-			buffer[i] = '\0';
 			if(fd == -1){ //fail to redirect
-				perror(buffer+i+1);
+				perror(buffer+i);
 				return 0;
 			}
 			return fd;
