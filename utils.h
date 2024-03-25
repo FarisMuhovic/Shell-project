@@ -6,5 +6,6 @@
 char* prompt(int);
 
 int buffer2Args(char*, char**);
+int redirector(char*);
 
 void welcomeText();

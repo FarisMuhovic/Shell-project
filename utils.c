@@ -2,6 +2,8 @@
 #include "defines.h"
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include <sys/utsname.h>
 
 
@@ -50,6 +52,29 @@ int buffer2Args(char *buffer, char** argv){
 	}
 	argv[argc+1] = NULL;
 	return argc;
+}
+
+int redirector(char* buffer){
+	int len = strlen(buffer);
+	int fd = 0;
+	for(int i=0; i<len; i++){
+		if(buffer[i] == '>'){
+			if(buffer[i] == '>'){
+				while(buffer[++i] != ' '){}
+				fd = open(buffer+i, O_WRONLY | O_APPEND | O_CREAT, 0664);
+			} else {
+				while(buffer[i++] != ' '){}
+				fd = open(buffer+i, O_WRONLY | O_CREAT, 0664);
+			}
+			buffer[i] = '\0';
+			if(fd == -1){ //fail to redirect
+				perror(buffer+i+1);
+				return 0;
+			}
+			return fd;
+		}
+	}
+	return 0;
 }
 
 const char logo[] = {

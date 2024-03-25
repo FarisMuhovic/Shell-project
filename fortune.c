@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 #include "defines.h"
 
 const char* fortunes[] = {
@@ -234,4 +235,5 @@ int fortune(int argc, char** argv) {
             printf(RESET"%s", fortunes[4]);
         }
     }
+    return 0;
 }
