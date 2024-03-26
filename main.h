@@ -1,2 +1,4 @@
 #pragma once
-//does nothing
+
+int main();
+int run(int, char**, int);
