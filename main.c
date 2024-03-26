@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/prctl.h>
 #include <sys/wait.h>
 #include "defines.h"
 #include "main.h"
@@ -12,11 +13,12 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int main() {
+int main(){
+	prctl(PR_SET_CHILD_SUBREAPER, 1, 0, 0, 0);
 	welcomeText();
 	char* buffer;
 	int retStatus = 0;
-	while((buffer = readline(prompt(retStatus))) != NULL) {
+	while((buffer = readline(prompt(retStatus))) != NULL){
 		if(strlen(buffer) == 0){
 			continue;
 		}
@@ -29,11 +31,14 @@ int main() {
 		if(strcmp(argv[0],        "exit") == 0){
 			printf("Goodbye!!\n");
 			return 0;
-		} else if(strcmp(argv[0], "cd") == 0) {
+		} else if(strcmp(argv[0], "cd") == 0){
 			chdir(argv[1]);
 		}
 		//printArgs(argc,argv);
-		waitpid(run(argc, argv, redirect), &retStatus, 0);
+		run(argc, argv, redirect);
+		while(wait(&retStatus) > 0){
+            //printf("Child exited with status %d\n", retStatus);
+		}
 		free(buffer);
 	}
 	return 0;
@@ -67,7 +72,7 @@ int run(int argc, char** argv, int redirect){
 		}
 		if(strcmp(argv[0],        "echo") == 0){
 			echo(argc, argv);
-		} else if(strcmp(argv[0], "fortune") == 0) { 
+		} else if(strcmp(argv[0], "fortune") == 0){
 			fortune(argc, argv);
 		} else if(strcmp(argv[0], "history") == 0){
 			history(argc, argv);
