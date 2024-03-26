@@ -8,5 +8,5 @@ char* prompt(int);
 int buffer2Args(char*, char**);
 int redirector(char*);
 void printArgs(int, char**);
-int handlePipe(char**);
+int handlePipe(char*, char**);
 void welcomeText();

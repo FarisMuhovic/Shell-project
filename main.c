@@ -22,29 +22,35 @@ int main() {
 		}
 		remember(buffer);	//file
 		add_history(buffer);//runtime
-
-		char* argv[MAX_ARGS]; //too big?
-		int redirect = redirector(buffer);
-		int argc = buffer2Args(buffer, argv);
-		if(strcmp(argv[0],        "exit") == 0){
-			printf("Goodbye!!\n");
-			return 0;
-		} else if(strcmp(argv[0], "cd") == 0) {
-			chdir(argv[1]);
+		//need to remove newline?
+		char* pipeline[MAX_ARGS];
+		int steps = handlePipe(buffer, pipeline);
+		int lastPid = 0;
+		for(int i=0; i <= steps; i++){
+			char* argv[MAX_ARGS]; //too big?
+			int argc = buffer2Args(buffer, argv);
+			//printArgs(argc,argv);			
+			if(strcmp(argv[0],        "exit") == 0){
+				printf("Goodbye!!\n");
+				return 0;
+			} else if(strcmp(argv[0], "cd") == 0) {
+				chdir(argv[1]);
+			}
+			int redirect = redirector(buffer); //should not allow redirecting in the middle...
+			lastPid = run(argc, argv, redirect, steps-i);
 		}
-		//printArgs(argc,argv);
-		waitpid(run(argc, argv, redirect), &retStatus, 0);
+
+		waitpid(lastPid, &retStatus, 0);
 		free(buffer);
 	}
 	return 0;
 }
 
-int run(int argc, char** argv, int redirect){
+int run(int argc, char** argv, int redirect, int step){
 	int childPid = fork();
 	if(childPid == 0){
-		int pindex = handlePipe(argv);
 		int cijev[2];
-		if(pindex != 0){
+		if(step != 0){
 			if(pipe(cijev)){
 				perror("Could not create pipe");
 				return -1;

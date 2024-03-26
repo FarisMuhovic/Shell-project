@@ -30,9 +30,7 @@ int buffer2Args(char* buffer, char** argv){
 	int argc = 0;
 	int navodnik = 0;//bool
 	int len = strlen(buffer);
-	argv[0] = strtok(buffer, "\n");
 	for(int i = 0; i < len; i++){
-		//exit if max args reached??
 		if(buffer[i] == ' ' && !navodnik){
 			buffer[i] = '\0';
 			while(buffer[++i] == ' '){
@@ -50,10 +48,10 @@ int buffer2Args(char* buffer, char** argv){
 			}
 		}
 	}
-	if(strlen(argv[argc]) == 0){ //should not have to do this.
-		argc--;// this is because the code above does not work properly.
+	if(strlen(argv[argc]) == 0){ //avoid having a single space be the last argument
+		argc--;
 	}
-	argv[argc + 1] = NULL; //just in case
+	argv[argc+1] = NULL;
 	return argc;
 }
 
@@ -80,14 +78,17 @@ int redirector(char* buffer){
 	return -1;
 }
 
-int handlePipe(char** argv){ //return index of pipe symbol, or 0 if no pipe
-	for(int i = 0; argv[i] != NULL;i++){
-		if(argv[i][0] == '|'){
-			argv[i] = NULL;//argv is still null-terminated
-			return i;
-		}// old argc is i-1, new argc will be argc-i-1 bc pipe is ignored
-	}//old buffer will not change, and new buffer will start at buffer+i+1
-	return 0;
+int handlePipe(char* buffer, char** pipeline){ //return number of steps in pipeline
+	int steps = 0;
+	pipeline[steps++] = buffer;
+	int len = strlen(buffer);
+	for(int i=0; i < len; i++){
+		if(buffer[i] == '|'){
+			buffer[i] = '\0';
+			pipeline[steps++] = buffer+i+1;
+		}
+	}
+	return steps;
 }
 
 void printArgs(int argc, char** argv){
