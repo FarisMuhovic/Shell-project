@@ -19,7 +19,7 @@ char* prompt(int retStatus){
 	if(strncmp(path, concatedpath, strlen(concatedpath)) == 0){
 		sprintf(concatedpath, "~%s", path + strlen(concatedpath));
 	} else{
-		strlcpy(concatedpath, path, 128);
+		strcpy(concatedpath, path);
 	}
 
 	sprintf(prompt, GREEN"%s"WHITE"@"GREEN"%s:"BLUE"%s"WHITE"$ "RESET, getlogin(), machinenamef, concatedpath);
@@ -45,7 +45,7 @@ int buffer2Args(char* buffer, char** argv){
 			argv[argc] += navodnik;
 		} else if(buffer[i] == '\\'){
 			if(buffer[i + 1] == '\\' || buffer[i + 1] == '\"'){
-				strlcpy(buffer + i, buffer + i + 1, BUFF_LEN);
+				strcpy(buffer + i, buffer + i + 1);
 				//previous check for " will not happen
 			}
 		}
@@ -65,7 +65,7 @@ int redirector(char* buffer){
 			if(buffer[i] == '>'){
 				i++;//skip the >
 				while(buffer[i] == ' '){ i++; }//this works, DO NOT TRY TO OPTIMIZE IT
-				fd = open(buffer + i, O_WRONLY | O_APPEND | O_CREAT, 0664);
+				fd = open(buffer + i, O_WRONLY | O_TRUNC | O_APPEND | O_CREAT, 0664);
 			} else{
 				while(buffer[i] == ' '){ i++; }
 				fd = open(buffer + i, O_WRONLY | O_TRUNC | O_CREAT, 0664);
