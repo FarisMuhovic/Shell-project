@@ -41,3 +41,45 @@ The man pages were the most useful resource; not only did they give a descriptio
 
 
 ## Answers to task 1.5
+
+Question 1.5.1: Do the following actions require the OS to use kernel mode or user mode is
+sufficient? Explain.
+1. A program wants to read from disk.
+2. Reading the current time from the hardware clock
+
+Answer: 
+1. Whenever a program wants to access files from a disk, kernel mode is needed because we are trying to directly access the computer resources which as we know the kernel is in charge of.
+2. Reading the current time from hardware clock can be done in user mode because we are not accessing critical information that will endanger our system security.
+
+Question 1.5.2: Explain the purpose of a system call. There are different sets of system calls:
+list them and give at least 2 examples of a system call for each category.
+
+Answer:
+A system call is an interface between a process(a program during execution) and operating system. A system call transfers control into the operating system by raising hardware privilege level. We have two modes. User mode and kernel mode. User mode does not have access to memory and resources. Whenever a program crashes in user mode, It will not break the system. Kernel mode has all the resources and permissions. If a program crashes in kernel mode it will break the system. Most programs will use user mode because its much safer, but some of them will need those computer resources. Thats why system calls exist. Those programs will "call" system calls to the operating system, after the OS receives the request for a system call, It will switch the program permission mode to kernel(This is called mode switching.).
+System calls can be grouped into five categories:
+1. Process control: They are used to create,modify,manage and terminate system processes and threads, including functions such as fork(), exec(), wait(), exit()
+2. File Management: These system calls are used to create, modify, and manage files and directories, including functions such as open(), read(), write(), and close().
+3. Device Management: These system calls are used to access and manage hardware devices such as printers, disks, and network interfaces, including functions such as ioctl() and read().
+4. Information Maintenance: These system calls are used to retrieve and update information about the system and its resources, including functions such as getpid(), getuid(), and getgid().
+5. Communication: These system calls are used to facilitate interprocess communication and synchronization, including functions such as pipe(), socket(), and sendmsg().
+
+Question 1.5.3: What are the possible outputs printed from this program shown below? You
+may assume that the program runs on a modern Linux-like OS. You may ignore any output
+generated from “some executable”.
+```
+int ret = fork();
+if(ret == 0) {
+printf(‘‘Hello1\n’’);
+exec(‘‘some_executable’’);
+printf(‘‘Hello2\n’’);
+} else if(ret > 0) {
+wait();
+printf(‘‘Hello3\n’’);
+} else {
+printf(‘‘Hello4\n’’);
+}
+```
+Answer: 
+I. Fork and exec will succeed. Hello1 and Hello3 will be printed out to the console.
+II. Fork will succeed. exec will fail. Hello1, Hello2 and Hello3 will be printed out to the console.
+III. Fork will fail and Hello4 will be printed out.
