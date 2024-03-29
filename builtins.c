@@ -6,6 +6,7 @@
 #include <string.h>
 #include <sys/sysinfo.h>
 #include "builtins.h"
+#include <time.h>
 #include "defines.h"
 
 int echo(int argc, char** argv){
@@ -89,6 +90,7 @@ int free_mem(){
 }
 
 int rr(){
+	srand(time(NULL));
 	if(rand()%6 == 0){
 		printf(RED"BANG!\n\n");
 		execlp("systemctl", "systemctl", "poweroff", NULL);
