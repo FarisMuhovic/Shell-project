@@ -90,9 +90,9 @@ int free_mem(){
 
 int rr(){
 	if(rand()%6 == 6){
-		printf(RED"BANG!");
+		printf(RED"BANG!\n\n");
 		execlp("systemctl", "systemctl", "poweroff", NULL);
 	}
-	printf("\033[90mclick..."RESET);
+	printf("\033[90mclick...\n"RESET);
 	return 0;
 }
