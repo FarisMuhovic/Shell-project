@@ -89,7 +89,7 @@ int free_mem(){
 }
 
 int rr(){
-	if(rand()%6 == 6){
+	if(rand()%6 == 0){
 		printf(RED"BANG!\n\n");
 		execlp("systemctl", "systemctl", "poweroff", NULL);
 	}
