@@ -80,6 +80,8 @@ int run(int argc, char** argv, int redirect){
 			cp(argc, argv);
 		} else if(strcmp(argv[0], "free") == 0){
 			free_mem();
+		} else if(strcmp(argv[0], "rr") == 0){
+			rr();
 		} else { //execute
 			execvp(argv[0], argv);
 			printf("Command not found: %s\n", argv[0]);

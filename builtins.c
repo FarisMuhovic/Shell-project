@@ -1,10 +1,12 @@
 #define _GNU_SOURCE
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <sys/sysinfo.h>
 #include "builtins.h"
+#include "defines.h"
 
 int echo(int argc, char** argv){
 	for(int i=1; i<=argc; i++){
@@ -83,5 +85,14 @@ int free_mem(){
 	fixSize(mem_info.totalswap * mem_info.mem_unit);
 	fixSize((mem_info.totalswap - mem_info.freeswap) * mem_info.mem_unit);
 	fixSize(mem_info.freeswap * mem_info.mem_unit);
+	return 0;
+}
+
+int rr(){
+	if(rand()%6 == 6){
+		printf(RED"BANG!");
+		execlp("systemctl", "systemctl", "poweroff", NULL);
+	}
+	printf("\033[90mclick..."RESET);
 	return 0;
 }
