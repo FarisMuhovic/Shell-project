@@ -12,3 +12,6 @@ build/%.o : %.c %.h
 
 clean:
 	rm -rf build/*
+
+install: build
+	cp build/MFshell /usr/bin/MFshell
